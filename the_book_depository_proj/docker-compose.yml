@@ -1,0 +1,32 @@
+version: "3.9"
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    command: >
+      sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/home/app/webapp
+    depends_on:
+      - books-db
+    env_file:
+      - .env
+  books-db:
+    image: postgres:13
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - "POSTGRES_HOST_AUTH_METHOD=trust"
+    ports:
+      - 5455:5432
+  books-fe:
+    build: ../books-fe
+    volumes:
+      - ../books-fe/src:/app/src
+    ports:
+      - 3000:3000
+
+
+volumes:
+  postgres_data:
