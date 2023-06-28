@@ -25,8 +25,9 @@ def books_list(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(['PUT', 'DELETE', 'GET'])
+@api_view(['PUT', 'GET'])
 def books_detail(request, pk):
+    print(f'Pk is {pk} when {request.method}ing')
     try:
         book = Book.objects.get(pk=pk)
     except Book.DoesNotExist:
@@ -41,9 +42,18 @@ def books_detail(request, pk):
             book, data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
-            return Response(status=status.HTTP_204_NO_CONTENT)
+            return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    elif request.method == 'DELETE':
-        book.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['DELETE'])
+def delete_book(request, pk):
+    print('About to delete book')
+    print(pk)
+    try:
+        book = Book.objects.get(pk=pk)
+    except Book.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    book.delete()
+    return Response(status=status.HTTP_204_NO_CONTENT)

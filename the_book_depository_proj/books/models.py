@@ -23,3 +23,14 @@ class Book(models.Model):
 
     def __str__(self):
         return self.title
+
+    def __eq__(self, other):
+        return self.title == other.title and \
+            self.author == other.author and \
+            self.description == other.description
+
+    # When __eq__ is implemented (implemented here to ease testing, namely using assertEqual),
+    # Python for some reason implicitly sets __hash__ to return None - thus had to implement this
+    # see https://stackoverflow.com/questions/1608842/types-that-define-eq-are-unhashable
+    def __hash__(self):
+        return super().__hash__()

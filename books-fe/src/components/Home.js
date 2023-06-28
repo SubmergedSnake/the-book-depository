@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Col, Container, Row } from "reactstrap";
+import { Alert, Col, Container, Row, Button } from "reactstrap";
 import BookList from "./BookList";
 import BookForm from "./BookForm";
 
@@ -11,6 +11,8 @@ const Home = () => {
   const [books, setBooks] = useState([]);
   const [selectedBook, setSelectedBook] = useState({});
   const [selectedRow, setSelectedRow] = useState(null);
+  const [error, setError] = useState(false);
+
 
   useEffect(() => {
     getBooks();
@@ -33,9 +35,8 @@ const Home = () => {
       res => {
         setBooks(res.data);
       }
-    );
+    ).catch(err => { setError(err) });
   };
-
 
   return (
     <Container style={{ marginTop: "20px" }}>
@@ -57,9 +58,21 @@ const Home = () => {
           <BookForm
             getBooks={getBooks}
             selectedBook={selectedBook}
+            setError={setError}
           />
         </Col>
       </Row>
+          {error?.message && <Alert color="danger" className="mt-2">
+            <h4 className="alert-heading">
+              An error occurred
+            </h4>
+            <p>
+              {error.message}
+            </p>
+            <hr />
+            <Button onClick={() => setError(false)}> Acknowledge </Button>
+          </Alert>}
+
     </Container >
   );
 }

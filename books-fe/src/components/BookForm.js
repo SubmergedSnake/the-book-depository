@@ -1,15 +1,15 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
-
 import axios from "axios";
 
-import { API_URL } from "../constants";
+import { API_URL, API_DELETE_URL } from "../constants";
 
 const BookForm = (props) => {
-  const { getBooks, selectedBook } = props;
+  const { getBooks, selectedBook, setError } = props;
   const [currentBook, setCurrentBook] = useState(selectedBook);
-  useEffect(() => { setCurrentBook(selectedBook) }, [selectedBook]);
   const titleInput = useRef(null);
+
+  useEffect(() => { setCurrentBook(selectedBook) }, [selectedBook]);
 
   const onChange = (e) => {
     const { target } = e;
@@ -30,10 +30,10 @@ const BookForm = (props) => {
 
 
   const deleteBook = () => {
-    axios.delete(API_URL + currentBook.pk, currentBook).then(() => {
+    axios.delete(API_DELETE_URL + 'asdf' + currentBook.pk).then(() => {
       getBooks();
       resetForm();
-    })
+    }).catch(err => { setError(err) })
   }
 
   const saveBook = (e) => {
@@ -45,10 +45,8 @@ const BookForm = (props) => {
     } else {
       axios.post(API_URL, currentBook).then(() => {
         getBooks();
-      }).catch((err) => {
-        console.log('erroneous payload!', err)
-      });
-    }
+      })
+    };
   }
 
 

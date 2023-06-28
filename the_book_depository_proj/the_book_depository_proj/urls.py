@@ -7,4 +7,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     re_path(r'^api/books/$', views.books_list),
     re_path(r'^api/books/([0-9])$', views.books_detail),
+    re_path(r'^api/delete/([0-9])$', views.delete_book),
 ]
