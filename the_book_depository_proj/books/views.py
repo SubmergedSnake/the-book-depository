@@ -27,7 +27,6 @@ def books_list(request):
 
 @api_view(['PUT', 'GET'])
 def books_detail(request, pk):
-    print(f'Pk is {pk} when {request.method}ing')
     try:
         book = Book.objects.get(pk=pk)
     except Book.DoesNotExist:
@@ -48,8 +47,6 @@ def books_detail(request, pk):
 
 @api_view(['DELETE'])
 def delete_book(request, pk):
-    print('About to delete book')
-    print(pk)
     try:
         book = Book.objects.get(pk=pk)
     except Book.DoesNotExist:
