@@ -25,6 +25,11 @@ Once the containers are up and running, open your browser and navigate to
 
 To **stop** the app, run `docker compose down` in the same directory.
 
+**IF** the UI cannot connect to the backend, it's probably because the backend container  
+did not start successfully. This can occur if e.g. the db container was not ready yet.
+
+In such an instance, stop all the containers and then start them again. 
+
 ### User interface and functionality
 ![ui](./images/ui.png)
 
@@ -63,3 +68,6 @@ This demo app uses the dev server provided by React.
 * Figure out a better way for running the backend tests
 
 * Add tests for core frontend funtionality, perhaps even an end-to-end test (look into Cypress or Playwright)
+
+* Make starting app from scratch more robust 
+(starting is sometimes a bit flaky, the web app may try to connect to db before it is ready)
