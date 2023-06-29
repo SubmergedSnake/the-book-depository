@@ -53,7 +53,7 @@ to enter the container for the backend. Once you're in, run
 
 As of now, there are no tests for the frontend. The UI however displays errormessages,  
 should 'Save', 'Add new book' or 'Delete' produce an error:
-![ui-error](./images/error.png)
+![ui-error](./images/error.png)  
 You can do away with the error message by clicking 'Acknowledge'.
 
 
