@@ -43,8 +43,8 @@ the book in the database.
 Fill all fields and click 'Save' to save the new book.
 
 ### Tests
-There are a couple of [tests](./the_book_depository_proj/books/tests) for the backend. Since the app is dockerized, the tests need to be run inside  
-the container.  
+There are a couple of [tests](./the_book_depository_proj/books/tests) for the backend. Since the app is dockerized,  
+the tests need to be run inside the container.  
 
 To do this, make sure the app is [running](#how-to-start/stop-the-app)  
 and then run `docker exec -it the_book_depository_proj-web-1 bash`  
@@ -71,3 +71,5 @@ This demo app uses the dev server provided by React.
 
 * Make starting app from scratch more robust 
 (starting is sometimes a bit flaky, the web app may try to connect to db before it is ready)
+
+* Different db's for dev, prod
