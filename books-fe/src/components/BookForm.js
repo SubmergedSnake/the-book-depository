@@ -30,7 +30,7 @@ const BookForm = (props) => {
 
 
   const deleteBook = () => {
-    axios.delete(API_DELETE_URL + 'asdf' + currentBook.pk).then(() => {
+    axios.delete(API_DELETE_URL + currentBook.pk).then(() => {
       getBooks();
       resetForm();
     }).catch(err => { setError(err) })
